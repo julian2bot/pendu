@@ -51,7 +51,7 @@ public class MotMystere {
     /**
      * dictionnaire dans lequel on choisit les mots
      */
-    private Dictionnaire dict;
+    // private Dictionnaire dict;
 
 
     /**
@@ -76,8 +76,8 @@ public class MotMystere {
      */
     public MotMystere(String nomFichier, int longMin, int longMax, int niveau, int nbErreursMax) {
         super();
-        this.dict = new Dictionnaire(nomFichier,longMin,longMax);
-        String motATrouver = dict.choisirMot();
+        // this.dict = new Dictionnaire(nomFichier,longMin,longMax);
+        // String motATrouver = dict.choisirMot();
         this.initMotMystere(motATrouver, niveau, nbErreursMax);
     }
 
@@ -90,7 +90,8 @@ public class MotMystere {
     private void initMotMystere(String motATrouver, int niveau, int nbErreursMax){
         this.niveau =niveau;
         this.nbEssais=0;
-        this.motATrouver = Dictionnaire.sansAccents(motATrouver).toUpperCase();
+        // this.motATrouver = Dictionnaire.sansAccents(motATrouver).toUpperCase();
+        this.motATrouver =motATrouver;
         this.motCrypte = "";
         this.lettresEssayees = new HashSet<>();
 
@@ -151,9 +152,9 @@ public class MotMystere {
     /**
      * Réinitialise le jeu avec un nouveau mot à trouver choisi au hasard dans le dictionnaire
      */
-    public void setMotATrouver() {
-        this.initMotMystere(this.dict.choisirMot(), this.niveau, this.nbEerreursMax);
-    }
+    // public void setMotATrouver() {
+    //     this.initMotMystere(this.dict.choisirMot(), this.niveau, this.nbEerreursMax);
+    // }
 
     /**
      * change le niveau de jeu (n'a pas d'effet en cours de partie)
