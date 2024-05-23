@@ -88,11 +88,14 @@ public class Pendu extends Application {
         this.lesImages = new ArrayList<Image>();
         this.chargerImages("./img");
         // A terminer d'implementer
-        this.panelCentral = new BorderPane();
-        this.boutonParametres = new Button();
-        
-        this.boutonMaison = new Button();
-        
+        panelCentral = new BorderPane();
+        ImageView img = new ImageView(new Image(new File("img\\parametres.png").toURI().toString()));
+        img.setFitHeight(100);
+        img.setFitWidth(100); 
+        this.boutonParametres = new Button("Paramètres");
+        this.boutonMaison = new Button("Maison");
+        this.bJouer = new Button("Lancer une Partie");
+        this.dessin = new ImageView();
     }
 
     /**
@@ -102,7 +105,7 @@ public class Pendu extends Application {
         BorderPane fenetre = new BorderPane();
         fenetre.setTop(this.titre());
         fenetre.setCenter(this.panelCentral);
-        return new Scene(fenetre, 800, 1000);
+        return new Scene(fenetre, 800, 800);
     }
 
     /**
@@ -111,9 +114,25 @@ public class Pendu extends Application {
     private Pane titre(){
         // A implementer          
         Pane banniere = new Pane();
+        BorderPane header = new BorderPane();
+        HBox lesboutons = new HBox();
         Label titre = new Label("Jeu du Pendu");
-        banniere.getChildren().add(titre);
+        lesboutons.getChildren().addAll(this.boutonParametres, this.boutonMaison);
+
+        header.setLeft(titre);
+        header.setRight(lesboutons);
+        banniere.getChildren().addAll(header);
         return banniere;
+
+        // File imageFile = new File("img\\user.png");
+        // Image imageDecline = new Image(new File("img\\user.png").toURI().toString());
+
+        // Button deconnexion=new Button("Deconnexion" , new ImageView(new Image(new File("img\\user.png").toURI().toString())));
+        // File imageFileNext = new File("img\\next.png");
+        // Image imageDeclineNext = new Image(imageFileNext.toURI().toString());
+
+        // Button apres=new Button("Question suivante" , new ImageView(imageDeclineNext));
+
     }
 
     // /**
@@ -156,33 +175,65 @@ public class Pendu extends Application {
         }
     }
 
+
     public void modeAccueil(){
+        VBox t = new VBox();
+        
         // Créer un groupe de toggle pour les RadioButtons
         ToggleGroup group = new ToggleGroup();
 
         // Créer les RadioButtons
-        RadioButton radioButton1 = new RadioButton("Option 1");
-        radioButton1.setToggleGroup(group);
-        RadioButton radioButton2 = new RadioButton("Option 2");
-        radioButton2.setToggleGroup(group);
-        RadioButton radioButton3 = new RadioButton("Option 3");
-        radioButton3.setToggleGroup(group);
-        RadioButton radioButton4 = new RadioButton("Option 4");
-        radioButton4.setToggleGroup(group);
-        RadioButton radioButton5 = new RadioButton("Option 5");
-        radioButton5.setToggleGroup(group);
+        RadioButton radioButtonFacile = new RadioButton("Facile");
+        radioButtonFacile.setToggleGroup(group);
+        RadioButton radioButtonMeduim = new RadioButton("Méduim");
+        radioButtonMeduim.setToggleGroup(group);
+        RadioButton radioButtonDifficile = new RadioButton("Difficile");
+        radioButtonDifficile.setToggleGroup(group);
+        RadioButton radioButtonExpert = new RadioButton("Expert");
+        radioButtonExpert.setToggleGroup(group);
 
-        // Ajouter les RadioButtons à un VBox
-        VBox vbox = new VBox(10, radioButton1, radioButton2, radioButton3, radioButton4, radioButton5);
-
+        VBox vbox = new VBox(10, radioButtonFacile, radioButtonMeduim, radioButtonDifficile, radioButtonExpert);
+        this.bJouer.setOnAction(new ControleurLancerPartie(modelePendu, this));
         // Créer un TitledPane et y ajouter le VBox
-        TitledPane titledPane = new TitledPane("Select an Option", vbox);
-        panelCentral.setCenter(titledPane);
+        TitledPane titledPane = new TitledPane("Niveau de difficulté", vbox);
+        titledPane.setCollapsible(false);
+        t.getChildren().addAll(this.bJouer, titledPane);
+        panelCentral.setCenter(t);
 
     }
     
     public void modeJeu(){
         // A implementer
+        BorderPane jeuHBox = new BorderPane();
+        
+        // PARTIE GAUCHE
+        VBox imgBtn = new VBox();
+        VBox nivChrono = new VBox();
+        Label leMot = new Label("esfdsfsd");
+        // IMAGE
+
+        String imagePath = "file://./img/pendu0.png";
+        
+        dessin = new ImageView(imagePath);
+
+        // progress bar
+        TilePane listBouton = new TilePane();
+        imgBtn.getChildren().addAll(leMot, dessin, listBouton);
+        
+        // PARTIE DROITE
+        Label nivLabel = new Label("Niveau");
+        
+        TitledPane chrono = new TitledPane("Chronomettre", new HBox(new Label("39sec")));
+        chrono.setCollapsible(false);
+        Button nouveauMot = new Button();
+        // nouveauMot.setOnAction(ControleurNouveauMot());
+
+        nivChrono.getChildren().addAll(nivLabel,chrono, nouveauMot);
+
+        // jeuHBox.getChildren().addAll(imgBtn, nivChrono);
+        jeuHBox.setCenter(imgBtn);
+        jeuHBox.setRight(nivChrono);
+        panelCentral.setCenter(jeuHBox);
     }
     
     public void modeParametres(){
