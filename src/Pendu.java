@@ -10,13 +10,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.scene.control.Tooltip;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.Region;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar.ButtonData ;
-import javafx.scene.control.ButtonType ;
+
 import java.util.List;
 import java.util.Arrays;
 import java.io.File;
@@ -87,10 +83,16 @@ public class Pendu extends Application {
      */
     @Override
     public void init() {
-        this.modelePendu = new MotMystere("/usr/share/dict/french", 3, 10, MotMystere.FACILE, 10);
+        this.modelePendu = new MotMystere("C:/Julian/ihm/pendu/src/message", 3, 10, MotMystere.FACILE, 10);
+        // this.modelePendu = new MotMystere("/usr/share/dict/french", 3, 10, MotMystere.FACILE, 10);
         this.lesImages = new ArrayList<Image>();
         this.chargerImages("./img");
         // A terminer d'implementer
+        this.panelCentral = new BorderPane();
+        this.boutonParametres = new Button();
+        
+        this.boutonMaison = new Button();
+        
     }
 
     /**
@@ -109,6 +111,8 @@ public class Pendu extends Application {
     private Pane titre(){
         // A implementer          
         Pane banniere = new Pane();
+        Label titre = new Label("Jeu du Pendu");
+        banniere.getChildren().add(titre);
         return banniere;
     }
 
@@ -153,7 +157,28 @@ public class Pendu extends Application {
     }
 
     public void modeAccueil(){
-        // A implementer
+        // Créer un groupe de toggle pour les RadioButtons
+        ToggleGroup group = new ToggleGroup();
+
+        // Créer les RadioButtons
+        RadioButton radioButton1 = new RadioButton("Option 1");
+        radioButton1.setToggleGroup(group);
+        RadioButton radioButton2 = new RadioButton("Option 2");
+        radioButton2.setToggleGroup(group);
+        RadioButton radioButton3 = new RadioButton("Option 3");
+        radioButton3.setToggleGroup(group);
+        RadioButton radioButton4 = new RadioButton("Option 4");
+        radioButton4.setToggleGroup(group);
+        RadioButton radioButton5 = new RadioButton("Option 5");
+        radioButton5.setToggleGroup(group);
+
+        // Ajouter les RadioButtons à un VBox
+        VBox vbox = new VBox(10, radioButton1, radioButton2, radioButton3, radioButton4, radioButton5);
+
+        // Créer un TitledPane et y ajouter le VBox
+        TitledPane titledPane = new TitledPane("Select an Option", vbox);
+        panelCentral.setCenter(titledPane);
+
     }
     
     public void modeJeu(){
@@ -166,14 +191,14 @@ public class Pendu extends Application {
 
     /** lance une partie */
     public void lancePartie(){
-        // A implementer
+        this.modeJeu();
     }
 
     /**
      * raffraichit l'affichage selon les données du modèle
      */
     public void majAffichage(){
-        // A implementer
+        chargerImages("./img");        
     }
 
     /**
@@ -219,6 +244,7 @@ public class Pendu extends Application {
         stage.setScene(this.laScene());
         this.modeAccueil();
         stage.show();
+        
     }
 
     /**

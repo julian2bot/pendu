@@ -22,16 +22,29 @@ public class ControleurLettres implements EventHandler<ActionEvent> {
      * @param vuePendu vue du jeu
      */
     ControleurLettres(MotMystere modelePendu, Pendu vuePendu){
-        // A implémenter
+        this.vuePendu = vuePendu;
+        this.modelePendu = modelePendu;
     }
 
     /**
      * Actions à effectuer lors du clic sur une touche du clavier
-     * Il faut donc: Essayer la lettre, mettre à jour l'affichage et vérifier si la partie est finie
+     * Il faut donc: 
+     * Essayer la lettre, 
+     * mettre à jour l'affichage et 
+     * vérifier si la partie est finie
      * @param actionEvent l'événement
      */
     @Override
     public void handle(ActionEvent actionEvent) {
-        // A implémenter
+        // non fini
+        System.out.println("Event lettre");
+        this.modelePendu.essaiLettre( (((Button)actionEvent.getSource()).getText()).charAt(0));
+        this.vuePendu.majAffichage();
+        if(modelePendu.perdu()){
+            vuePendu.popUpMessagePerdu();
+        }
+        else if (this.modelePendu.gagne()){
+            vuePendu.popUpMessageGagne();
+        }
     }
 }
