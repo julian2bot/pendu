@@ -51,7 +51,7 @@ public class MotMystere {
     /**
      * dictionnaire dans lequel on choisit les mots
      */
-    // private Dictionnaire dict;
+    private Dictionnaire dict;
 
 
     /**
@@ -76,8 +76,9 @@ public class MotMystere {
      */
     public MotMystere(String nomFichier, int longMin, int longMax, int niveau, int nbErreursMax) {
         super();
-        // this.dict = new Dictionnaire(nomFichier,longMin,longMax);
-        // String motATrouver = dict.choisirMot();
+        this.dict = new Dictionnaire(nomFichier,longMin,longMax);
+        String motATrouver = dict.choisirMot();
+        System.out.println(motATrouver);
         this.initMotMystere(motATrouver, niveau, nbErreursMax);
     }
 
@@ -91,7 +92,7 @@ public class MotMystere {
         this.niveau =niveau;
         this.nbEssais=0;
         // this.motATrouver = Dictionnaire.sansAccents(motATrouver).toUpperCase();
-        this.motATrouver =motATrouver;
+        // this.motATrouver = motATrouver;
         this.motCrypte = "";
         this.lettresEssayees = new HashSet<>();
 

@@ -22,6 +22,9 @@ public class ControleurLancerPartie implements EventHandler<ActionEvent> {
      */
     public ControleurLancerPartie(MotMystere modelePendu, Pendu vuePendu) {
         // A implémenter
+        this.vuePendu = vuePendu;
+        this.modelePendu = modelePendu;
+
     }
 
     /**
@@ -36,6 +39,7 @@ public class ControleurLancerPartie implements EventHandler<ActionEvent> {
         // si la réponse est oui
         if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
             System.out.println("Ok !");
+            this.vuePendu.lancePartie();
         }
         else{
             System.out.println("D'ac !");
