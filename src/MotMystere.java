@@ -91,8 +91,8 @@ public class MotMystere {
     private void initMotMystere(String motATrouver, int niveau, int nbErreursMax){
         this.niveau =niveau;
         this.nbEssais=0;
-        // this.motATrouver = Dictionnaire.sansAccents(motATrouver).toUpperCase();
-        // this.motATrouver = motATrouver;
+        this.motATrouver = Dictionnaire.sansAccents(motATrouver).toUpperCase();
+        this.motATrouver = motATrouver;
         this.motCrypte = "";
         this.lettresEssayees = new HashSet<>();
 
