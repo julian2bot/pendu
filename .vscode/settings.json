@@ -1,6 +1,6 @@
 {
     "java.project.sourcePaths": [
-        "src"
+        "src","img²"
     ],
     "java.project.referencedLibraries": [
         "c:\\Julian\\lib_java\\javafx-sdk-22\\lib\\javafx.swing.jar",

@@ -143,6 +143,30 @@ public class MotMystere {
         return this.niveau;
     }
 
+    public String getNiveauString(){
+        String niveauString = ""; 
+        switch (this.niveau) {
+            case 0:
+                niveauString = "Facile";
+                break;
+            case 1:
+                niveauString = "Moyen";
+                break;
+                
+            case 2:
+                niveauString = "Difficile";
+                break;
+        
+            case 3:
+                niveauString = "Expert";
+                break;
+        
+            default:
+                break;
+        }
+        return niveauString;
+    }
+
     /** réinitialise le jeu avec un nouveau à trouver
      * @param motATrouver le nouveau mot à trouver
      */
