@@ -39,8 +39,9 @@ public class ControleurLancerPartie implements EventHandler<ActionEvent> {
         // si la réponse est oui
         if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
             System.out.println("Ok !");
+            
             this.vuePendu.resetPartie();
-            this.vuePendu.start(null);
+            // this.vuePendu.start(null); // STAGE NULL jsp faut y mettre quoi
 
             this.vuePendu.lancePartie();
             

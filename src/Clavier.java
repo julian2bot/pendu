@@ -45,6 +45,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,9 +64,9 @@ public class Clavier extends TilePane {
         for (char touche : touches.toCharArray()) {
             Button button = new Button(String.valueOf(touche));
             button.setOnAction(actionTouches);
-            button.setShape(new Circle(15));
-            button.setMinSize(30, 30);
-            button.setMaxSize(30, 30);
+            button.setShape(new Ellipse(20,15));
+            button.setMinSize(40, 30);
+            button.setMaxSize(40, 30);
             clavier.add(button);
             this.getChildren().add(button);
         }

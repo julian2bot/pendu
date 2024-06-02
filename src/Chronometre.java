@@ -90,7 +90,7 @@ public class Chronometre extends Text {
         // this.setTextAlignment(TextAlignment.CENTER);
 
         // Initialize the KeyFrame to call the actionTemps every second
-        // actionTemps = new ControleurChronometre();
+        actionTemps = new ControleurChronometre(this);
         keyFrame = new KeyFrame(Duration.seconds(1), actionTemps);
 
         // Initialize the Timeline with indefinite cycle count
