@@ -17,6 +17,7 @@ public class RetourAccueil implements EventHandler<ActionEvent> {
     private Pendu vuePendu;
 
     /**
+     * retourne a l'accueil
      * @param modelePendu modèle du jeu
      * @param vuePendu vue du jeu
      */
