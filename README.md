@@ -17,3 +17,5 @@ Il est complet et en chemin relatif, donc il suffit de lancer le jeu pour tester
 
 Bonne partie !
 
+## GitHub
+https://github.com/julian2bot/pendu
