@@ -82,8 +82,10 @@ public class Pendu extends Application {
      */ 
     private Button bJouer;
     private String fichierSource;
-
-
+    /**
+     * retourne le chemin du fichier dico
+     * @return String 
+     */
     public String getFichierSource() {
         return fichierSource;
     }
@@ -93,7 +95,7 @@ public class Pendu extends Application {
      */
     @Override
     public void init() {
-        this.fichierSource= "C:/Julian/ihm/pendu/src/message";
+        this.fichierSource= "./src/message";
         this.modelePendu = new MotMystere(this.fichierSource, 3, 10, MotMystere.EXPERT, 10);
         // this.modelePendu = new MotMystere("/usr/share/dict/french", 3, 10, MotMystere.FACILE, 10);
         this.lesImages = new ArrayList<Image>();
@@ -106,8 +108,6 @@ public class Pendu extends Application {
         this.boutonParametres = new Button("Paramètres", img);
         this.boutonMaison = new Button("Maison");
         this.bJouer = new Button("Lancer une Partie");
-
-        // this.dessin = new ImageView();
 
 
     }
@@ -167,27 +167,7 @@ public class Pendu extends Application {
     
         return banniere;
     }
-        // Pane banniere = new Pane();
-        // BorderPane header = new BorderPane();
-        // HBox lesboutons = new HBox();
-        // Label titre = new Label("Jeu du Pendu");
-        
-        // lesboutons.getChildren().addAll(this.boutonParametres, this.boutonMaison);
-
-        // header.setLeft(titre);
-        // header.setRight(lesboutons);
-        // banniere.getChildren().addAll(header);
-        // return banniere;
-
-        // File imageFile = new File("img\\user.png");
-        // Image imageDecline = new Image(new File("img\\user.png").toURI().toString());
-
-        // Button deconnexion=new Button("Deconnexion" , new ImageView(new Image(new File("img\\user.png").toURI().toString())));
-        // File imageFileNext = new File("img\\next.png");
-        // Image imageDeclineNext = new Image(imageFileNext.toURI().toString());
-
-        // Button apres=new Button("Question suivante" , new ImageView(imageDeclineNext));
-
+ 
 
 
     /**
@@ -234,15 +214,19 @@ public class Pendu extends Application {
     }
 
 
+    /**
+     * affichage de la page accueil
+     * @return void
+     */
     public void modeAccueil(){
         VBox t = new VBox();
         // top, right, bottom, left
         t.setPadding(new Insets(20));
 
-        // Créer un groupe de toggle pour les RadioButtons
+        // toggle pour RadioButton
         ToggleGroup group = new ToggleGroup();
 
-        // Créer les RadioButtons
+        //RadioButton
         RadioButton radioButtonFacile = new RadioButton("Facile");
         radioButtonFacile.setToggleGroup(group);
         RadioButton radioButtonMeduim = new RadioButton("Méduim");
@@ -259,7 +243,7 @@ public class Pendu extends Application {
 
         this.bJouer.setOnAction(event -> {
             // Récupérer le niveau sélectionné
-            int niveau = MotMystere.FACILE; // Par défaut
+            int niveau = MotMystere.FACILE; // défaut
             if (radioButtonMeduim.isSelected()) {
                 niveau = MotMystere.MOYEN;
             } else if (radioButtonDifficile.isSelected()) {
@@ -270,16 +254,14 @@ public class Pendu extends Application {
     
             // Initialiser le MotMystere avec le niveau choisi
             
-            this.modelePendu = new MotMystere("C:/Julian/ihm/pendu/src/message", 3, 10, niveau, 10);
+            this.modelePendu = new MotMystere(fichierSource, 3, 10, niveau, 10);
             // Faire quelque chose avec le mot initialisé, comme lancer le jeu
             lancePartie();
         });
     
         
         t.setAlignment(Pos.TOP_CENTER);
-        // this.bJouer.setOnAction(new ControleurLancerPartie(modelePendu, this));
-        // this.bJouer.setOnAction(event -> lancePartie());
-        // Créer un TitledPane et y ajouter le VBox
+
         TitledPane titledPane = new TitledPane("Niveau de difficulté", vbox);
         titledPane.setCollapsible(false);
         titledPane.setPadding(new Insets(10));
@@ -292,7 +274,10 @@ public class Pendu extends Application {
 
     }
     
-    
+    /**
+     * affichage de la page jeu
+     * @return void
+     */
     public void modeJeu() {
         // A implementer
         BorderPane jeuHBox = new BorderPane();
@@ -333,7 +318,8 @@ public class Pendu extends Application {
 
 
 
-
+        imgBtn.setAlignment(Pos.TOP_CENTER);
+        listBouton.setAlignment(Pos.TOP_CENTER);
     
         imgBtn.getChildren().addAll(this.motCrypte, dessin,this.pg, listBouton);
 
@@ -346,8 +332,19 @@ public class Pendu extends Application {
         Button nouveauMot = new Button("Nouvelle Partie");
         nouveauMot.setOnAction(new ControleurLancerPartie(modelePendu, this));
         // nouveauMot.setOnAction(event -> resetPartie() );
+
+
+        // EN PLUS CAR J4AI PAS UTILIS2 LA POP UP REGLE DU JEU
+        Button boutonEnPlus = new Button("Regle du jeu");
+        boutonEnPlus.setOnAction( new ControleurInfos(this));
+        // boutonEnPlus.setOnAction(e -> popUpMessageInfo());
+
+        // boutonEnPlus.setOnAction(event -> resetPartie() );
     
-        nivChrono.getChildren().addAll(this.leNiveau, leChrono(), nouveauMot);
+        VBox.setMargin(boutonEnPlus, new Insets(20, 0, 0, 0)); 
+
+
+        nivChrono.getChildren().addAll(this.leNiveau, leChrono(), nouveauMot, boutonEnPlus);
         VBox.setMargin(nouveauMot, new Insets(20, 0, 0, 0)); 
 
         // jeuHBox.getChildren().addAll(imgBtn, nivChrono);
@@ -359,6 +356,10 @@ public class Pendu extends Application {
     
     
 
+    /**
+     * affichage de la page parametre
+     * @return void
+     */
     public void modeParametres(){
         // A implémenter
         titre();
@@ -374,15 +375,24 @@ public class Pendu extends Application {
 
     }
 
+    
+    /**
+     * appel l'affichage de la partie jeu
+     * @return void
+     */
     /** lance une partie */
     public void lancePartie(){
         this.modeJeu();
     }
 
 
+    /**
+     * remets a zero tout les composants du jeu
+     * @return void
+     */
     public void resetPartie() {
         // Réinitialisation des variables de jeu
-        this.modelePendu = new MotMystere("C:/Julian/ihm/pendu/src/message", 3, 10, modelePendu.getNiveau(), 10);
+        this.modelePendu = new MotMystere(fichierSource, 3, 10, modelePendu.getNiveau(), 10);
         dessin.setImage(lesImages.get(0));
         this.motCrypte.setText(this.modelePendu.getMotCrypte() + "  le vrai mot : " + this.modelePendu.getMotATrouve());
         
@@ -394,6 +404,7 @@ public class Pendu extends Application {
     }
     /**
      * raffraichit l'affichage selon les données du modèle
+     * @retun void
      */
     public void majAffichage(){
         // System.out.println("yooo");
@@ -421,21 +432,32 @@ public class Pendu extends Application {
         return this.chrono; // A enlever
     }
 
+    /**
+     * affichage de la pop up EN cours de partie qui demande si on est sur de vouloir changé de partie
+     * @return Alert
+     */
     public Alert popUpPartieEnCours(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"La partie est en cours!\n Etes-vous sûr de l'interrompre ?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Attention");
 
         return alert;
     }
-        
+
+    /**
+     * affichage de la pop up regle du jeu qui affiche les regles du jeu
+     * @return Alert
+     */
     public Alert popUpReglesDuJeu(){
         // A implementer
         
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Les regles du jeu sont: \n1.\n2.\n3.\n4.\n5.\n6.\n7.\n8.", ButtonType.OK);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Les regles du jeu sont: \n1. Google\n2. ChatGPT \n3.Autres...\n4.\n5.\n6.\n7.\n8.", ButtonType.OK);
         return alert;
     }
-            
+    /**
+     * affichage de la pop up qui affiche une information 
+     * @return Alert
+     */            
     public void popUpMessageInfo() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Informations");
@@ -448,7 +470,10 @@ public class Pendu extends Application {
         alert.showAndWait(); // Afficher la boîte de dialogue et attendre que l'utilisateur la ferme
     }
     
-    
+    /**
+     * affichage de la pop up qui affiche que le joeur a gagné
+     * @return Alert
+     */    
     public Alert popUpMessageGagne(){
         
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Bravo ! vous avez  gagné \nVoulez vous jouer de nouveau?", ButtonType.OK);
@@ -469,7 +494,10 @@ public class Pendu extends Application {
         return alert;
     
     }
-    
+    /**
+     * affichage de la pop up qui affiche que le joeur a perdu
+     * @return Alert
+     */  
     public Alert popUpMessagePerdu(){
         
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Vous avez perdu \nLe mot a trouver etait "+ this.modelePendu.getMotATrouve()+" ! \n Voulez vous jouer de nouveau?", ButtonType.OK);

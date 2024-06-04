@@ -5,24 +5,32 @@ public class ControleurChronometre implements EventHandler<ActionEvent> {
     private long tempsPrec;
     private long tempsEcoule;
     private Chronometre chrono;
-
+    /**
+     * Initialise le chrono par defaut
+     * @param chrono Chrono
+     */  
     public ControleurChronometre(Chronometre chrono) {
         this.chrono = chrono;
-        tempsPrec = 0;
-        tempsEcoule = 0;
+        tempsPrec = -1;
+        tempsEcoule = System.currentTimeMillis();
     }
-
+    /**
+     * controler qui remets le temps 
+     * @param actionevent event
+     */ 
     @Override
     public void handle(ActionEvent actionEvent) {
-        long currentTime = System.currentTimeMillis();
-        tempsEcoule += currentTime - tempsPrec;
-        tempsPrec = currentTime;
-        chrono.setTime(tempsEcoule);
-    }
+        if(this.tempsPrec != -1){
+            this.chrono.setTime((this.tempsPrec - this.tempsEcoule));
+        }
+        this.tempsPrec = System.currentTimeMillis();
 
+    }
+    /**
+     * remets le chrono a zero
+     */ 
     public void reset() {
-        tempsPrec = System.currentTimeMillis();
-        tempsEcoule = 0;
-        chrono.setTime(0);
+        tempsPrec = -1;
+        tempsEcoule = System.currentTimeMillis();
     }
 }

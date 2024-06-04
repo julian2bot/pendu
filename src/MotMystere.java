@@ -142,7 +142,9 @@ public class MotMystere {
     public int getNiveau(){
         return this.niveau;
     }
-
+    /**
+     * @return Niveau par nom du jeu
+     */
     public String getNiveauString(){
         String niveauString = ""; 
         switch (this.niveau) {
@@ -174,12 +176,6 @@ public class MotMystere {
         this.initMotMystere(motATrouver, this.niveau, this.nbEerreursMax);
     }
 
-    /**
-     * Réinitialise le jeu avec un nouveau mot à trouver choisi au hasard dans le dictionnaire
-     */
-    // public void setMotATrouver() {
-    //     this.initMotMystere(this.dict.choisirMot(), this.niveau, this.nbEerreursMax);
-    // }
 
     /**
      * change le niveau de jeu (n'a pas d'effet en cours de partie)
